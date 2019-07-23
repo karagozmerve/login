@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function create()
+    {
+       return view('layouts.create');//aslında oluşturmak istediğim bize sorun ama home sayfasıyla başladığımdan kafam karışmasın istedim
+    }
 }
