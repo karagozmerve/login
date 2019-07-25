@@ -55,9 +55,28 @@ class HomeController extends Controller
     public function store (Request $request)
    {
         sorular::create(Request::all());
-       return 'Sorunuz Kaydedilmiştir. En kısa sürede geri dönüş alacaksınız:)';
-       
+       //return \App\sorular::all();
 
+        $sorular=\App\sorular::all();
+        return view ('store',compact('sorular'));
+    }
+    public function sil($id=0)
+    {
+        if($id!=0){
+            $sorusil=sorular::where('id','=',$id)->delete();
+                if($sorusil)
+                    {
+                    return 'Tebrikler Silme İşleminiz Başarıyla Gerçekleşti';
+
+                    }
+                else
+                    {
+                    return null;
+                    }
+        }
+        else{
+            return null;
+        }
     }
 
 }

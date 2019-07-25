@@ -20,5 +20,7 @@ Auth::routes();
 
 Route::get("home", 'HomeController@index');
 Route::POST("store",'HomeController@store');
+Route::get('/sil/{id?}',array('as'=>'sil','uses'=>'HomeController@sil'));
+
 
 

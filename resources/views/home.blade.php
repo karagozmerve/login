@@ -41,7 +41,7 @@
 
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <br>
-                        <input type="submit" value="Gönder">
+                        <input type="submit" class="btn btn-warning" value="Gönder">
 
                         </form>
                 </div>
