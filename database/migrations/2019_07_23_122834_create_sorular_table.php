@@ -14,13 +14,15 @@ class CreateSorularTable extends Migration
     public function up()
     {
         //
-        Schema::create('sorular',function(Blueprint $tablo){
-            $tablo->increments('id');
-            $tablo->string('title');
-            $tablo->string('subject');
-            $tablo->string('text');
-            $tablo->string('label');
+        Schema::create('sorular',function(Blueprint $table){
+            $table->increments('id');
+            $table->string('title');
+            $table->string('subject');
+            $table->string('text');
+            $table->timestamps();
+
         });
+
     }
 
     /**
@@ -34,3 +36,4 @@ class CreateSorularTable extends Migration
         Schema::drop('sorular');
     }
 }
+
