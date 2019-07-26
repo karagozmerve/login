@@ -78,5 +78,31 @@ class HomeController extends Controller
             return null;
         }
     }
+    public function duzenle($id=0)
+    {
+        $soruduzenle=sorular::whereRaw('id!=?',array(0,10))->get();
+        $soru=sorular::whereRaw('id=?',array($id))->first();
+        return view('home',array('sorular'=>$soruduzenle,'soruguncelle'=>$soru));
+    }
+    public function postduzenle(Request $request)
+    {
+        $kontrol=validator::make(Request::all(),array(
+            'title' => 'required|string|max:255',
+            'subject' => 'required|string',
+            'text' => 'required|string|min:6',
+        ));
+        $id=Request::input('id');
+        $title=Request::input('title');
+        $subject=Request::input('subject');
+        $text=Request::input('text');
+        $soru=sorular::find($id);
+      //guncelleme işlemlerim
+        $soru->title=$title;
+        $soru->subject=$subject;
+        $soru->text=$text;
+        $soru->save();
+               return 'Tebrikler düzenleme işleminiz başarıyla gerçekleşti';
+
+    }
 
 }
