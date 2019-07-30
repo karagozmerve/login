@@ -1,6 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+    <head>
+        <style>
+            div.table{
+                overflow-x: auto;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                padding: 8px;
+                text-align:center;
+
+            }
+
+        </style>
+    </head>
     @if($sorular)
         <table class="table" border="1">
             <thead>
@@ -29,10 +47,6 @@
                 @endforeach
             </tbody>
         </table>
-
-
-
-
 
     @endif
 @stop

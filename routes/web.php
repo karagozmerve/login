@@ -18,10 +18,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get("home", 'HomeController@index');
+Route::get("home", array('as'=>'index','uses'=>'HomeController@index'));
 Route::POST("store",'HomeController@store');
 Route::get('/sil/{id?}',array('as'=>'sil','uses'=>'HomeController@sil'));
 Route::get('/duzenle/{id?}',array('as'=>'duzenle','uses'=>'HomeController@duzenle'));
 Route::POST('/duzenle',array('as'=>'duzenle','uses'=>'HomeController@postduzenle'));
+Route::POST("sorularim",'HomeController@sorularim');
+
+
+
+
+
 
 

@@ -14,6 +14,7 @@ class HomeController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -52,57 +53,67 @@ class HomeController extends Controller
             'text' => $data['text'],
         ]);
     }
-    public function store (Request $request)
-   {
-        sorular::create(Request::all());
-       //return \App\sorular::all();
 
-        $sorular=\App\sorular::all();
-        return view ('store',compact('sorular'));
-    }
-    public function sil($id=0)
+    public function store(Request $request)
     {
-        if($id!=0){
-            $sorusil=sorular::where('id','=',$id)->delete();
-                if($sorusil)
-                    {
-                    return 'Tebrikler Silme İşleminiz Başarıyla Gerçekleşti';
+        sorular::create(Request::all());
+        //return \App\sorular::all();
 
-                    }
-                else
-                    {
-                    return null;
-                    }
-        }
-        else{
+
+        $sorular = \App\sorular::all();
+        return view('store', compact('sorular'));
+    }
+
+
+    public function sil($id = 0)
+    {
+        if ($id != 0) {
+            $sorusil = sorular::where('id', '=', $id)->delete();
+            if ($sorusil) {
+                return 'Tebrikler Merve Silme İşlemin Başarıyla Gerçekleşti :))';
+
+            } else {
+                return null;
+            }
+        } else {
             return null;
         }
     }
-    public function duzenle($id=0)
+
+    public function duzenle($id = 0)
     {
-        $soruduzenle=sorular::whereRaw('id!=?',array(0,10))->get();
-        $soru=sorular::whereRaw('id=?',array($id))->first();
-        return view('home',array('sorular'=>$soruduzenle,'soruguncelle'=>$soru));
+        $soruduzenle = sorular::whereRaw('id!=?', array(0, 10))->get();
+        $soru = sorular::whereRaw('id=?', array($id))->first();
+        return view('home', array('sorular' => $soruduzenle, 'soruguncelle' => $soru));
     }
+
     public function postduzenle(Request $request)
     {
-        $kontrol=validator::make(Request::all(),array(
+        $kontrol = validator::make(Request::all(), array(
             'title' => 'required|string|max:255',
             'subject' => 'required|string',
             'text' => 'required|string|min:6',
         ));
-        $id=Request::input('id');
-        $title=Request::input('title');
-        $subject=Request::input('subject');
-        $text=Request::input('text');
-        $soru=sorular::find($id);
-      //guncelleme işlemlerim
-        $soru->title=$title;
-        $soru->subject=$subject;
-        $soru->text=$text;
+        $id = Request::input('id');
+        $title = Request::input('title');
+        $subject = Request::input('subject');
+        $text = Request::input('text');
+        $soru = sorular::find($id);
+        //guncelleme işlemlerim
+        $soru->title = $title;
+        $soru->subject = $subject;
+        $soru->text = $text;
         $soru->save();
-               return 'Tebrikler düzenleme işleminiz başarıyla gerçekleşti';
+        return redirect()->route('index');
 
     }
 
+    public function sorularim(Request $request)
+    {
+        return view('sorularim');
+    }
 }
+
+
+
+
