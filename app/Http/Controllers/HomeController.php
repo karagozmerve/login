@@ -41,6 +41,7 @@ class HomeController extends Controller
             'title' => 'required|string|max:255',
             'subject' => 'required|string',
             'text' => 'required|string|min:6',
+            'label'=>'required|string',
         ]);
     }
 
@@ -51,6 +52,7 @@ class HomeController extends Controller
             'title' => $data['title'],
             'subject' => $data['subject'],
             'text' => $data['text'],
+            'label'=>$data['label'],
         ]);
     }
 
@@ -93,16 +95,21 @@ class HomeController extends Controller
             'title' => 'required|string|max:255',
             'subject' => 'required|string',
             'text' => 'required|string|min:6',
+            'label'=>'required|string',
+
+
         ));
         $id = Request::input('id');
         $title = Request::input('title');
         $subject = Request::input('subject');
         $text = Request::input('text');
+        $label=Request::input('label');
         $soru = sorular::find($id);
         //guncelleme işlemlerim
         $soru->title = $title;
         $soru->subject = $subject;
         $soru->text = $text;
+        $soru->label=$label;
         $soru->save();
         return redirect()->route('index');
 

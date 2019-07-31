@@ -19,6 +19,7 @@ class CreateSorularTable extends Migration
             $table->string('title');
             $table->string('subject');
             $table->string('text');
+            $table->string('label');
             $table->timestamps();
 
         });

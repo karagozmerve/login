@@ -26,6 +26,7 @@
                 <th>Title</th>
                 <th>Subject</th>
                 <th>Text</th>
+                <th>Label</th>
                 <th>Oluşturulma Tarihi</th>
                 <th>Eylem</th>
             </tr>
@@ -37,6 +38,7 @@
                         <td>{{$sorular->title}}</td>
                         <td>{{$sorular->subject}}</td>
                         <td>{{$sorular->text}}</td>
+                        <td>{{$sorular->label}}</td>
                         <td>{{$sorular->created_at}}</td>
                         <td>
                             <a href ="{{url('/sil',$sorular->id)}}"  class="btn btn-danger">Sil</a>

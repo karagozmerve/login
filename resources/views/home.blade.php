@@ -70,14 +70,14 @@
 
                                 <body>
                                 <label for="multiple" class="control-label"  ></label>
-                                <select id="multiple" class="form-control select2-multiple"   multiple>
+                                <select id="multiple" class="form-control select2-multiple" name="label"  multiple>
                                     <optgroup label="Label">
 
-                                        <option value="bug">Bug</option>
-                                        <option value="kargo" >Kargo</option>
-                                        <option value="acil">Acil</option>
-                                        <option value="hasarlı">Hasarlı</option>
-                                        <option value="iade">İade</option>
+                                        <option value="bug" @if($soruguncelle->label=="bug") selected="true" @endif>Bug</option>
+                                        <option value="kargo" @if($soruguncelle->label=="kargo") selected="true" @endif >Kargo</option>
+                                        <option value="acil" @if($soruguncelle->label=="acil") selected="true" @endif>Acil</option>
+                                        <option value="hasarli" @if($soruguncelle->label=="hasarli") selected="true" @endif>Hasarlı</option>
+                                        <option value="iade" @if($soruguncelle->label=="iade") selected="true" @endif>İade</option>
 
                                     </optgroup>
                                     <optgroup label="Ekleyeceğiniz Etiketi Bulamadıysanız Burdan Ekleyebilirsiniz..">
@@ -90,6 +90,8 @@
                                 <script>
                                     var placeholder = "Select a State";
                                     $( ".select2-single, .select2-multiple" ).select2( {
+                                        tags: true,
+                                        tokenSeparators: [',', ' '],
                                         placeholder: placeholder,
                                         containerCssClass: ':all:'
                                     } );
@@ -141,35 +143,36 @@
 
                                 <body>
                                 <label for="multiple" class="control-label"  ></label>
-                                <select id="multiple" class="form-control select2-multiple"   multiple>
-                                    <optgroup label="Label">
+                                <select id="multiple" class="form-control select2-multiple" name="label" multiple>
+                                    <optgroup label="~Eklenmiş Etiketler~">
 
-                                        <option value="bug">Bug</option>
+                                        <option value="bug" >Bug</option>
                                         <option value="kargo" >Kargo</option>
                                         <option value="acil">Acil</option>
-                                        <option value="hasarlı">Hasarlı</option>
+                                        <option value="hasarli">Hasarlı</option>
                                         <option value="iade">İade</option>
 
                                     </optgroup>
                                     <optgroup label="Ekleyeceğiniz Etiketi Bulamadıysanız Burdan Ekleyebilirsiniz..">
-
+                                    <option value="+" >+EKLE</option>
                                     </optgroup>
                                 </select>
                                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                                 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 
                                 <script>
-                                    var placeholder = "Select a State";
+                                    var placeholder = "Lütfen Etiket Seçiniz...";
                                     $( ".select2-single, .select2-multiple" ).select2( {
+                                        tags: true,
+                                        tokenSeparators: [',', ' '],
                                         placeholder: placeholder,
                                         containerCssClass: ':all:'
                                     } );
 
+
                                 </script>
                                 </body>
                                 </html>
-
-
 
                                 <br>
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -185,18 +188,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

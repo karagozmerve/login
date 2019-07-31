@@ -8,6 +8,6 @@ class sorular extends Model
 {
     //
     protected $table='sorular';
-    protected $fillable=['title','subject','text'];
+    protected $fillable=['title','subject','text','label'];
 
 }
