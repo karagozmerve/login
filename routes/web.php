@@ -24,8 +24,8 @@ Route::get('/sil/{id?}',array('as'=>'sil','uses'=>'HomeController@sil'));
 Route::get('/duzenle/{id?}',array('as'=>'duzenle','uses'=>'HomeController@duzenle'));
 Route::POST('/duzenle',array('as'=>'duzenle','uses'=>'HomeController@postduzenle'));
 Route::POST("sorularim",'HomeController@sorularim');
-
-
+Route::get("tags",'HomeController@tags');
+Route::post("tags",'TagsController@tags');
 
 
 

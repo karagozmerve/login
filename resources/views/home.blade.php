@@ -91,7 +91,7 @@
                                     var placeholder = "Select a State";
                                     $( ".select2-single, .select2-multiple" ).select2( {
                                         tags: true,
-                                        tokenSeparators: [',', ' '],
+                                        tokenSeparators: [' ', ' '],
                                         placeholder: placeholder,
                                         containerCssClass: ':all:'
                                     } );
@@ -122,7 +122,7 @@
                                     <option value="diger">Diğer</option>
                                 </select>
                                 <br>
-                                <br >Açıklama</br>
+                                <br >Açıklama<br>
                                 <textarea name="text" cols="90" rows="10">Lütfen Sorunuzla İlgili Bir Açıklama Giriniz..</textarea>
                                 <br>
                                 <br>Etiket<br>
@@ -144,7 +144,7 @@
                                 <body>
                                 <label for="multiple" class="control-label"  ></label>
                                 <select id="multiple" class="form-control select2-multiple" name="label" multiple>
-                                    <optgroup label="~Eklenmiş Etiketler~">
+                                    <optgroup label="~Daha Önce Eklenmiş Etiketler~">
 
                                         <option value="bug" >Bug</option>
                                         <option value="kargo" >Kargo</option>
@@ -164,7 +164,7 @@
                                     var placeholder = "Lütfen Etiket Seçiniz...";
                                     $( ".select2-single, .select2-multiple" ).select2( {
                                         tags: true,
-                                        tokenSeparators: [',', ' '],
+                                        tokenSeparators: [' ', ' '],
                                         placeholder: placeholder,
                                         containerCssClass: ':all:'
                                     } );

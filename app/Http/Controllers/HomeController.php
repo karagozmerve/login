@@ -119,6 +119,9 @@ class HomeController extends Controller
     {
         return view('sorularim');
     }
+    public function tags(Request $request){
+        return view('tags');
+    }
 }
 
 

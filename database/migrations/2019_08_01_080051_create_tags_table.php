@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSorularTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,20 +14,15 @@ class CreateSorularTable extends Migration
     public function up()
     {
         //
-        Schema::create('sorular',function(Blueprint $table){
-            $table->increments('id');
-            $table->string('title');
-            $table->string('subject');
-            $table->string('text');
-            $table->string('label');
+        Schema::create('tags', function (Blueprint $table) {
+            $table->increments('tags_id');
+            $table->string('name');
             $table->timestamps();
-
         });
-
     }
-    public function tags()
+    public function sorular()
     {
-        return $this->belongsToMany(\App\tags::class);
+        return $this->belongsToMany(\App\sorular::class);
     }
     /**
      * Reverse the migrations.
@@ -37,7 +32,7 @@ class CreateSorularTable extends Migration
     public function down()
     {
         //
-        Schema::drop('sorular');
+        Schema::drop('tags');
+
     }
 }
-
