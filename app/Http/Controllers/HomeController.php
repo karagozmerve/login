@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\sorular_tags;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Request;
 use App\Http\Requests;
 use App\sorular;
 use Illuminate\Support\Facades\Validator;
-
+use App\tags;
 class HomeController extends Controller
 {
     /**
@@ -29,12 +31,8 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
-
     }
-    //public function create()
-    //{
-    //   return view('views.home');//aslında oluşturmak istediğim bize sorun ama home sayfasıyla başladığımdan kafam karışmasın istedim
-    //}
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -45,7 +43,6 @@ class HomeController extends Controller
         ]);
     }
 
-
     protected function create(array $data)
     {
         return sorular::create([
@@ -54,12 +51,50 @@ class HomeController extends Controller
             'text' => $data['text'],
             'label'=>$data['label'],
         ]);
+
+
     }
 
     public function store(Request $request)
     {
-        sorular::create(Request::all());
-        //return \App\sorular::all();
+        $kontrol = validator::make(Request::all(), array(
+            'sorular_id',
+            'tags_id',
+            'title' => 'required|string|max:255',
+            'subject' => 'required|string',
+            'text' => 'required|string|min:6',
+            'label'=>'required|string',
+        ));
+
+        $sorular_id = Request::input('sorular_id');
+        $tags_id=Request::input('tags_id');
+        $title = Request::input('title');
+        $subject = Request::input('subject');
+        $text = Request::input('text');
+        $label=Request::input('label');
+        $labels=Request::input('label');
+        $sorular = new sorular();
+
+        /*$sorular_tags=new sorular_tags();
+        $sorular_tags->sorular_id=$sorular_id;
+        $sorular_tags->tags_id=$tags_id;
+        $sorular_tags->save(); */
+
+        $sorular->title = $title;
+        $sorular->subject = $subject;
+        $sorular->text = $text;
+        $label=implode(",",$label);
+        $sorular->label=$label;
+        $sorular->save();
+        foreach ($labels as $label) {
+            $varmi = tags::where('label', '=', Input::get('label'))->first();
+            if ($varmi == null) {
+                $tags = new tags();
+                $tags->label = $label;
+                $tags->save();
+            }
+
+        }
 
 
         $sorular = \App\sorular::all();
@@ -72,7 +107,7 @@ class HomeController extends Controller
         if ($id != 0) {
             $sorusil = sorular::where('id', '=', $id)->delete();
             if ($sorusil) {
-                return 'Tebrikler Merve Silme İşlemin Başarıyla Gerçekleşti :))';
+                return redirect()->route('index')->with('success', 'Tebrikler Silindi..:)');
 
             } else {
                 return null;
@@ -84,7 +119,7 @@ class HomeController extends Controller
 
     public function duzenle($id = 0)
     {
-        $soruduzenle = sorular::whereRaw('id!=?', array(0, 10))->get();
+        $soruduzenle = sorular::whereRaw('id!=?', array(0, 90))->get();
         $soru = sorular::whereRaw('id=?', array($id))->first();
         return view('home', array('sorular' => $soruduzenle, 'soruguncelle' => $soru));
     }
@@ -96,9 +131,8 @@ class HomeController extends Controller
             'subject' => 'required|string',
             'text' => 'required|string|min:6',
             'label'=>'required|string',
-
-
         ));
+
         $id = Request::input('id');
         $title = Request::input('title');
         $subject = Request::input('subject');
@@ -109,18 +143,22 @@ class HomeController extends Controller
         $soru->title = $title;
         $soru->subject = $subject;
         $soru->text = $text;
+        $label=implode(",",$label);
         $soru->label=$label;
         $soru->save();
         return redirect()->route('index');
-
     }
 
     public function sorularim(Request $request)
     {
         return view('sorularim');
     }
+
     public function tags(Request $request){
-        return view('tags');
+        $taglist =  DB::table('tags')->get();
+
+        return view('tags',compact('taglist'));
+
     }
 }
 

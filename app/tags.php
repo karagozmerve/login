@@ -8,6 +8,10 @@ class tags extends Model
 {
     //
     protected $table='tags';
-    protected $fillable=['name'];
+    protected $fillable=['label'];
 
+    public function sorular()
+    {
+        return $this->belongsToMany('app\tags','sorular_tags');
+    }
 }

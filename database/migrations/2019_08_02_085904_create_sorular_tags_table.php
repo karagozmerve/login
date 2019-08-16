@@ -14,9 +14,13 @@ class CreateSorularTagsTable extends Migration
     {
         //
         Schema::create('sorular_tags', function (Blueprint $table) {
-            $table->increments('st_id');
-            $table->integer('id')->unsigned();
-            $table->integer('tags_id')->unsigned();
+            $table->increments('id');
+            $table->integer('sorular_id')->unsigned();
+            $table->foreign('sorular_id')->references('id')->on('sorular');
+            $table->integer('tags_id')->unsigned()->nullable();
+            $table->foreign('tags_id')->references('tags_id')->on('tags');
+            $table->timestamps();
+
         });
     }
 

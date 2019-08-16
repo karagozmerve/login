@@ -30,9 +30,11 @@
 
                             <body>
                             <label for="multiple" class="control-label"  ></label>
-                            <select id="multiple" class="form-control select2-multiple" name="name" multiple>
+                            <select id="multiple" class="form-control select2-multiple" name="label[]" multiple>
                                 <optgroup label="~Daha Önce Eklenmiş Etiketler~">
-
+                                    @foreach($taglist as $tags)
+                                    <option value="{{$tags->tags_id}}">{{$tags->label}}</option>
+                                    @endforeach
                                     <option value="bug" >Bug</option>
                                     <option value="kargo" >Kargo</option>
                                     <option value="acil">Acil</option>
@@ -51,7 +53,7 @@
                                 var placeholder = "Lütfen Etiket Seçiniz...";
                                 $( ".select2-single, .select2-multiple" ).select2( {
                                     tags: true,
-                                    tokenSeparators: [' ', ' '],
+                                    tokenSeparators: [',', ' '],
                                     placeholder: placeholder,
                                     containerCssClass: ':all:'
                                 } );

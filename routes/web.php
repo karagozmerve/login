@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,7 +25,9 @@ Route::POST('/duzenle',array('as'=>'duzenle','uses'=>'HomeController@postduzenle
 Route::POST("sorularim",'HomeController@sorularim');
 Route::get("tags",'HomeController@tags');
 Route::post("tags",'TagsController@tags');
-
+Route::get('sorular/tags',function(){
+    return \App\sorular::find(2)->tags;
+});
 
 
 

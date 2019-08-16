@@ -1,3 +1,9 @@
+@if (session('status'))
+    <div class="alert">
+        {{ session('status') }}
+    </div>
+@endif
+
 @extends('layouts.app')
 
     <style>
@@ -8,7 +14,12 @@
         .select2-container {
             width: 200px;
         }
-
+        .alert{
+            background:#aa4a24;
+            color:#000000;
+            padding:10px;
+            margin-bottom: 10px;
+        }
     </style>
 
 
@@ -21,18 +32,19 @@
                     </div>
 
                     <div class="panel-body">
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+
+                            @if (session()->has('success'))
+                                <div class="alert alert-{{ session('success') }}">
+                                <h1>{{ session('success') }}</h1>
+                                </div>
+                            @endif
 
                         @if(isset($soruguncelle))
                             <form action="{{url('/duzenle')}}" method="POST">
                                 {{ csrf_field() }}
 
                                 <input type="hidden" name="id" value="{{$soruguncelle->id}}">
-                                <br >Başlık</br>
+                                <br >Başlık<br>
                                 <input type="text" name="title" placeholder="Konu Başlığı" value="{{$soruguncelle->title}}">
                                 <br>
                                 <br>Konu<br>
@@ -47,7 +59,7 @@
 
                                 </select>
                                 <br>
-                                <br >Açıklama</br>
+                                <br >Açıklama<br>
 
                                 <textarea name="text" cols="90" rows="10">{{$soruguncelle->text}}</textarea>
                                 <br>
@@ -70,7 +82,8 @@
 
                                 <body>
                                 <label for="multiple" class="control-label"  ></label>
-                                <select id="multiple" class="form-control select2-multiple" name="label"  multiple>
+                                <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple>
+
                                     <optgroup label="Label">
 
                                         <option value="bug" @if($soruguncelle->label=="bug") selected="true" @endif>Bug</option>
@@ -80,10 +93,10 @@
                                         <option value="iade" @if($soruguncelle->label=="iade") selected="true" @endif>İade</option>
 
                                     </optgroup>
-                                    <optgroup label="Ekleyeceğiniz Etiketi Bulamadıysanız Burdan Ekleyebilirsiniz..">
 
-                                    </optgroup>
+                                    <optgroup label="Ekleyeceğiniz Etiketi Bulamadıysanız Burdan Ekleyebilirsiniz.."></optgroup>
                                 </select>
+
                                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                                 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 
@@ -105,26 +118,29 @@
                                 <input type="submit" class="btn btn-warning" value="Düzenle">
 
                             </form>
+
                         @else
                             <form action="store" method="POST">
                                 {{ csrf_field() }}
 
-                                <br >Başlık</br>
+                                <br >Başlık<br>
                                 <input type="text" name="title" placeholder="Konu Başlığı">
                                 <br>
-                                <br>Konu<br>
 
+                                <br>Konu<br>
                                 <select name="subject">
-                                    <option value="secin" disable="true"selected="true">Lütfen Konu Seçin..</option>
+                                    <option value="secin" disabled="true" selected="true">Lütfen Konu Seçin..</option>
                                     <option value="siparis">Sipariş</option>
                                     <option value="site">Site Hakkında</option>
                                     <option value="oneri">Öneri</option>
                                     <option value="diger">Diğer</option>
                                 </select>
                                 <br>
+
                                 <br >Açıklama<br>
                                 <textarea name="text" cols="90" rows="10">Lütfen Sorunuzla İlgili Bir Açıklama Giriniz..</textarea>
                                 <br>
+
                                 <br>Etiket<br>
                                 <!doctype html>
                                 <html class="demo">
@@ -143,7 +159,7 @@
 
                                 <body>
                                 <label for="multiple" class="control-label"  ></label>
-                                <select id="multiple" class="form-control select2-multiple" name="label" multiple>
+                                <select id="multiple" class="form-control select2-multiple" name="label[]" multiple>
                                     <optgroup label="~Daha Önce Eklenmiş Etiketler~">
 
                                         <option value="bug" >Bug</option>
@@ -188,44 +204,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
