@@ -7,6 +7,14 @@
 @extends('layouts.app')
 
     <style>
+        .form-control {
+            height:100%;
+            width:400px;
+            border-radius:20px;
+            overflow: auto;
+
+        }
+
         .selectRow {
             display : block;
             padding : 20px;
@@ -85,7 +93,9 @@
                                 <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple>
 
                                     <optgroup label="Label">
-
+                                        @foreach($taglist as $tags)
+                                            <option value="{{$tags->tags_id}}">{{$tags->label}}</option>
+                                        @endforeach
                                         <option value="bug" @if($soruguncelle->label=="bug") selected="true" @endif>Bug</option>
                                         <option value="kargo" @if($soruguncelle->label=="kargo") selected="true" @endif >Kargo</option>
                                         <option value="acil" @if($soruguncelle->label=="acil") selected="true" @endif>Acil</option>
@@ -159,9 +169,11 @@
 
                                 <body>
                                 <label for="multiple" class="control-label"  ></label>
-                                <select id="multiple" class="form-control select2-multiple" name="label[]" multiple>
+                                <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple>
                                     <optgroup label="~Daha Önce Eklenmiş Etiketler~">
-
+                                        @foreach($taglist as $tags)
+                                            <option value="{{$tags->label}}">{{$tags->label}}</option>
+                                        @endforeach
                                         <option value="bug" >Bug</option>
                                         <option value="kargo" >Kargo</option>
                                         <option value="acil">Acil</option>
@@ -169,9 +181,7 @@
                                         <option value="iade">İade</option>
 
                                     </optgroup>
-                                    <optgroup label="Ekleyeceğiniz Etiketi Bulamadıysanız Burdan Ekleyebilirsiniz..">
-                                    <option value="+" >+EKLE</option>
-                                    </optgroup>
+
                                 </select>
                                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                                 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>

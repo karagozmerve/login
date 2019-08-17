@@ -41,9 +41,6 @@ class TagsController extends Controller
 
 
 
-            return view('tags', $tags);
-
-
         }
     }
 }

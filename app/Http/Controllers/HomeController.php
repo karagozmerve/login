@@ -22,7 +22,6 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-
     /**
      * Show the application dashboard.
      *
@@ -30,7 +29,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $taglist =  DB::table('tags')->get();
+        return view('home',compact('taglist'));
+
+       // return view('home');
+
     }
 
     protected function validator(array $data)
@@ -57,6 +60,7 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
+
         $kontrol = validator::make(Request::all(), array(
             'sorular_id',
             'tags_id',
@@ -86,6 +90,7 @@ class HomeController extends Controller
         $label=implode(",",$label);
         $sorular->label=$label;
         $sorular->save();
+
         foreach ($labels as $label) {
             $varmi = tags::where('label', '=', Input::get('label'))->first();
             if ($varmi == null) {
@@ -93,9 +98,7 @@ class HomeController extends Controller
                 $tags->label = $label;
                 $tags->save();
             }
-
         }
-
 
         $sorular = \App\sorular::all();
         return view('store', compact('sorular'));
@@ -119,9 +122,10 @@ class HomeController extends Controller
 
     public function duzenle($id = 0)
     {
+        $taglist =  DB::table('tags')->get();
         $soruduzenle = sorular::whereRaw('id!=?', array(0, 90))->get();
         $soru = sorular::whereRaw('id=?', array($id))->first();
-        return view('home', array('sorular' => $soruduzenle, 'soruguncelle' => $soru));
+        return view('home', array('sorular' => $soruduzenle, 'soruguncelle' => $soru),compact('taglist'));
     }
 
     public function postduzenle(Request $request)
@@ -155,9 +159,10 @@ class HomeController extends Controller
     }
 
     public function tags(Request $request){
-        $taglist =  DB::table('tags')->get();
 
+        $taglist =  DB::table('tags')->get();
         return view('tags',compact('taglist'));
+        //return view('tags',compact('taglist'));
 
     }
 }
