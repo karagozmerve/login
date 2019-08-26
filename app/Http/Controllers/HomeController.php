@@ -32,7 +32,7 @@ class HomeController extends Controller
         $taglist =  DB::table('tags')->get();
         return view('home',compact('taglist'));
 
-       // return view('home');
+       //return view('home');
 
     }
 
@@ -53,37 +53,30 @@ class HomeController extends Controller
             'subject' => $data['subject'],
             'text' => $data['text'],
             'label'=>$data['label'],
-        ]);
 
+        ]);
 
     }
 
     public function store(Request $request)
     {
-
         $kontrol = validator::make(Request::all(), array(
-            'sorular_id',
-            'tags_id',
             'title' => 'required|string|max:255',
             'subject' => 'required|string',
             'text' => 'required|string|min:6',
             'label'=>'required|string',
+
         ));
 
-        $sorular_id = Request::input('sorular_id');
-        $tags_id=Request::input('tags_id');
+
         $title = Request::input('title');
         $subject = Request::input('subject');
         $text = Request::input('text');
         $label=Request::input('label');
         $labels=Request::input('label');
+        $title = Request::input('title');
+
         $sorular = new sorular();
-
-        /*$sorular_tags=new sorular_tags();
-        $sorular_tags->sorular_id=$sorular_id;
-        $sorular_tags->tags_id=$tags_id;
-        $sorular_tags->save(); */
-
         $sorular->title = $title;
         $sorular->subject = $subject;
         $sorular->text = $text;
@@ -92,16 +85,23 @@ class HomeController extends Controller
         $sorular->save();
 
         foreach ($labels as $label) {
-            $varmi = tags::where('label', '=', Input::get('label'))->first();
+            $varmi = tags::where('label', '=', $label)->first();
             if ($varmi == null) {
                 $tags = new tags();
                 $tags->label = $label;
                 $tags->save();
             }
+            $yokmu = tags::where('label', '=', $label)->first();
+
+            $rel= New sorular_tags();
+            $rel->sorular_id=$sorular->id;
+            $rel->tags_id=$yokmu->id;
+            $rel->save();
         }
 
+
         $sorular = \App\sorular::all();
-        return view('store', compact('sorular'));
+        return view('store',compact('sorular'));
     }
 
 
@@ -109,19 +109,22 @@ class HomeController extends Controller
     {
         if ($id != 0) {
             $sorusil = sorular::where('id', '=', $id)->delete();
-            if ($sorusil) {
+            if ($sorusil)
+            {
                 return redirect()->route('index')->with('success', 'Tebrikler Silindi..:)');
-
-            } else {
+            }
+            else {
                 return null;
             }
-        } else {
+        }
+        else {
             return null;
         }
     }
 
     public function duzenle($id = 0)
     {
+        //$tagbul=sorular::with('tags')->find('tags_id');
         $taglist =  DB::table('tags')->get();
         $soruduzenle = sorular::whereRaw('id!=?', array(0, 90))->get();
         $soru = sorular::whereRaw('id=?', array($id))->first();
@@ -142,7 +145,9 @@ class HomeController extends Controller
         $subject = Request::input('subject');
         $text = Request::input('text');
         $label=Request::input('label');
+        $labels=Request::input('label');
         $soru = sorular::find($id);
+
         //guncelleme işlemlerim
         $soru->title = $title;
         $soru->subject = $subject;
@@ -150,7 +155,23 @@ class HomeController extends Controller
         $label=implode(",",$label);
         $soru->label=$label;
         $soru->save();
+        foreach ($labels as $label) {
+            $varmi = tags::where('label', '=', Input::get('label'))->first();
+            if ($varmi == null) {
+                $tags = new tags();
+                $tags->label = $label;
+                $tags->save();
+            }
+            $varmi = tags::where('label', '=', Input::get('label'))->first();
+
+            $rel= New sorular_tags();
+            $rel->sorular_id=$soru->id;
+            $rel->tags_id=$varmi->id;
+            $rel->save();
+        }
+
         return redirect()->route('index');
+
     }
 
     public function sorularim(Request $request)
@@ -164,6 +185,11 @@ class HomeController extends Controller
         return view('tags',compact('taglist'));
         //return view('tags',compact('taglist'));
 
+    }
+    public function showstore(Request $request)
+    {
+        $sorular = DB::table('sorular')->get();
+        return view('store',compact('sorular'));
     }
 }
 

@@ -9,4 +9,5 @@ class sorular_tags extends Model
     //
     protected $table='sorular_tags';
     protected $fillable=['id','sorular_id','tags_id'];
+    protected $primaryKey='id';
 }

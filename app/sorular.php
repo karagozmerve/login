@@ -1,8 +1,7 @@
 <?php
 
 namespace App;
-
-use phpDocumentor\Reflection\DocBlock\Tag;
+use App\tags;
 use Illuminate\Database\Eloquent\Model;
 
 class sorular extends Model
@@ -14,7 +13,7 @@ class sorular extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('app\sorular','sorular_tags','user_id','tags_id')->withTimestamps();
+        return $this->belongsToMany('tags');
     }
 
 }

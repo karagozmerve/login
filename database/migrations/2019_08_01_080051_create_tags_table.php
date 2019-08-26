@@ -15,15 +15,12 @@ class CreateTagsTable extends Migration
     {
         //
         Schema::create('tags', function (Blueprint $table) {
-            $table->increments('tags_id');
+            $table->increments('id');
             $table->string('label');
             $table->timestamps();
         });
     }
-    public function sorular()
-    {
-        return $this->belongsToMany(\App\sorular::class);
-    }
+
     /**
      * Reverse the migrations.
      *

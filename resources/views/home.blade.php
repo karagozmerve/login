@@ -47,17 +47,18 @@
                                 </div>
                             @endif
 
+
                         @if(isset($soruguncelle))
                             <form action="{{url('/duzenle')}}" method="POST">
                                 {{ csrf_field() }}
 
-                                <input type="hidden" name="id" value="{{$soruguncelle->id}}">
+                                <input type="hidden" name="id" value="{{$soruguncelle->id}}" >
                                 <br >Başlık<br>
-                                <input type="text" name="title" placeholder="Konu Başlığı" value="{{$soruguncelle->title}}">
+                                <input type="text" name="title" placeholder="Konu Başlığı" value="{{$soruguncelle->title}}" required="required"/>
                                 <br>
                                 <br>Konu<br>
 
-                                <select name="subject" >
+                                <select required name="subject" >
 
                                     <option value="siparis" @if($soruguncelle->subject=="siparis") selected="true" @endif >Sipariş</option>
                                     <option value="secin" @if($soruguncelle->subject=="secin") selected="true" @endif >Lütfen Konu Seçin..</option>
@@ -69,7 +70,7 @@
                                 <br>
                                 <br >Açıklama<br>
 
-                                <textarea name="text" cols="90" rows="10">{{$soruguncelle->text}}</textarea>
+                                <textarea cols="90" rows="10" name="text" required >{{$soruguncelle->text}}</textarea>
                                 <br>
                                 <br>
                                 <br>Etiket<br>
@@ -90,17 +91,18 @@
 
                                 <body>
                                 <label for="multiple" class="control-label"  ></label>
-                                <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple>
+                                <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple  required>
 
                                     <optgroup label="Label">
                                         @foreach($taglist as $tags)
-                                            <option value="{{$tags->tags_id}}">{{$tags->label}}</option>
+                                            <option value="{{$tags->id}}">{{$tags->label}}</option>
                                         @endforeach
-                                        <option value="bug" @if($soruguncelle->label=="bug") selected="true" @endif>Bug</option>
-                                        <option value="kargo" @if($soruguncelle->label=="kargo") selected="true" @endif >Kargo</option>
-                                        <option value="acil" @if($soruguncelle->label=="acil") selected="true" @endif>Acil</option>
-                                        <option value="hasarli" @if($soruguncelle->label=="hasarli") selected="true" @endif>Hasarlı</option>
-                                        <option value="iade" @if($soruguncelle->label=="iade") selected="true" @endif>İade</option>
+
+                                            <option value="bug" @if($soruguncelle->label=="bug") selected="true" @endif>Bug</option>
+                                            <option value="kargo" @if($soruguncelle->label=="kargo") selected="true" @endif >Kargo</option>
+                                            <option value="acil" @if($soruguncelle->label=="acil") selected="true" @endif>Acil</option>
+                                            <option value="hasarli" @if($soruguncelle->label=="hasarli") selected="true" @endif>Hasarlı</option>
+                                            <option value="iade" @if($soruguncelle->label=="iade") selected="true" @endif>İade</option>
 
                                     </optgroup>
 
@@ -134,21 +136,22 @@
                                 {{ csrf_field() }}
 
                                 <br >Başlık<br>
-                                <input type="text" name="title" placeholder="Konu Başlığı">
+                                <input type="text" name="title" placeholder="Konu Başlığı" required="required"/>
                                 <br>
 
                                 <br>Konu<br>
-                                <select name="subject">
-                                    <option value="secin" disabled="true" selected="true">Lütfen Konu Seçin..</option>
+                                <select required name="subject">
+                                    <option value="">Lütfen Konu Seçin..</option>
                                     <option value="siparis">Sipariş</option>
                                     <option value="site">Site Hakkında</option>
                                     <option value="oneri">Öneri</option>
                                     <option value="diger">Diğer</option>
                                 </select>
+
                                 <br>
 
                                 <br >Açıklama<br>
-                                <textarea name="text" cols="90" rows="10">Lütfen Sorunuzla İlgili Bir Açıklama Giriniz..</textarea>
+                                <textarea rows="10" cols="90" name="text" required>Lütfen Sorunuzla İlgili Bir Açıklama Giriniz..</textarea>
                                 <br>
 
                                 <br>Etiket<br>
@@ -166,10 +169,9 @@
 
                                     <![endif]-->
                                 </head>
-
                                 <body>
-                                <label for="multiple" class="control-label"  ></label>
-                                <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple>
+                                <label for="multiple" class="control-label" ></label>
+                                <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple required>
                                     <optgroup label="~Daha Önce Eklenmiş Etiketler~">
                                         @foreach($taglist as $tags)
                                             <option value="{{$tags->label}}">{{$tags->label}}</option>
