@@ -3,7 +3,7 @@
 namespace App;
 use App\tags;
 use Illuminate\Database\Eloquent\Model;
-
+use App\sorular_tags;
 class sorular extends Model
 {
     //
@@ -13,7 +13,7 @@ class sorular extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('tags');
+        return $this->belongsToMany('App\tags','sorular_tags','tags_id');
     }
 
 }

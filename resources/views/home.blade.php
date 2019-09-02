@@ -91,19 +91,22 @@
 
                                 <body>
                                 <label for="multiple" class="control-label"  ></label>
-                                <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple  required>
+                                <select id="multiple" class="form-control select2-multiple" name="label[]"  multiple required>
 
                                     <optgroup label="Label">
-                                        @foreach($taglist as $tags)
-                                            <option value="{{$tags->id}}">{{$tags->label}}</option>
-                                        @endforeach
 
-                                            <option value="bug" @if($soruguncelle->label=="bug") selected="true" @endif>Bug</option>
-                                            <option value="kargo" @if($soruguncelle->label=="kargo") selected="true" @endif >Kargo</option>
-                                            <option value="acil" @if($soruguncelle->label=="acil") selected="true" @endif>Acil</option>
-                                            <option value="hasarli" @if($soruguncelle->label=="hasarli") selected="true" @endif>Hasarlı</option>
-                                            <option value="iade" @if($soruguncelle->label=="iade") selected="true" @endif>İade</option>
-
+                                        @foreach($soruguncelle->tags as $tag)
+                                               <option value="{{$tag->tags_id}}" selected="true" >{{$tag->tags_id}}</option>
+                                           @endforeach
+                                           {{-- @foreach($taglist as $tags)
+                                                <option value="{{$tags->id}}">{{$tags->label}}</option>
+                                            @endforeach
+                                              <option value="bug" @if($soruguncelle->label=="bug") selected="true" @endif>Bug</option>
+                                              <option value="kargo" @if($soruguncelle->label=="kargo") selected="true" @endif >Kargo</option>
+                                              <option value="acil" @if($soruguncelle->label=="acil") selected="true" @endif>Acil</option>
+                                              <option value="hasarli" @if($soruguncelle->label=="hasarli") selected="true" @endif>Hasarlı</option>
+                                              <option value="iade" @if($soruguncelle->label=="iade") selected="true" @endif>İade</option>
+                                            --}}
                                     </optgroup>
 
                                     <optgroup label="Ekleyeceğiniz Etiketi Bulamadıysanız Burdan Ekleyebilirsiniz.."></optgroup>
@@ -196,7 +199,6 @@
                                         placeholder: placeholder,
                                         containerCssClass: ':all:'
                                     } );
-
 
                                 </script>
                                 </body>

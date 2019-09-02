@@ -124,11 +124,11 @@ class HomeController extends Controller
 
     public function duzenle($id = 0)
     {
-        //$tagbul=sorular::with('tags')->find('tags_id');
+        $tagbul=DB::table('sorular_tags')->where('sorular_id', '=', array($id))->get();
         $taglist =  DB::table('tags')->get();
         $soruduzenle = sorular::whereRaw('id!=?', array(0, 90))->get();
         $soru = sorular::whereRaw('id=?', array($id))->first();
-        return view('home', array('sorular' => $soruduzenle, 'soruguncelle' => $soru),compact('taglist'));
+        return view('home', array('sorular' => $soruduzenle, 'soruguncelle' => $soru ),compact('taglist','tagbul'));
     }
 
     public function postduzenle(Request $request)
@@ -174,18 +174,8 @@ class HomeController extends Controller
 
     }
 
-    public function sorularim(Request $request)
-    {
-        return view('sorularim');
-    }
 
-    public function tags(Request $request){
 
-        $taglist =  DB::table('tags')->get();
-        return view('tags',compact('taglist'));
-        //return view('tags',compact('taglist'));
-
-    }
     public function showstore(Request $request)
     {
         $sorular = DB::table('sorular')->get();

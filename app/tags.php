@@ -12,6 +12,6 @@ class tags extends Model
 
     public function sorular()
     {
-        return $this->belongsToMany('sorular');
+        return $this->belongsToMany('App\sorular','sorular_tags','sorular_id');
     }
 }
