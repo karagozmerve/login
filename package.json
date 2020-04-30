@@ -13,14 +13,14 @@
     "axios": "^0.16.2",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.0.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
   },
   "dependencies": {
     "bootstrap-sass": "^3.0.0",
-    "jquery": "^2.1.4",
+    "jquery": "^3.5.0",
     "laravel-elixir": "^3.0.0",
     "selectize": "^0.12.6"
   }
